@@ -243,4 +243,24 @@ Last は このとき、最後の Just な要素を返す。
 mconcat $ map Last $ [Nothing, Just 9, Just 10, Nothing, Just 11] -- Last {getLast = Just 11}
 ``` 
 
+## モノイドで畳み込む
+
+モノイドを利用して、任意の集合型に対して畳み込みを実行できる。それらは `Data.Foldable` モジュールに定義され、リストに対する畳込みとまったく同じように使える。実際には、リストもモノイドなので、 `Data.Foldable` に定義されている関数はリストにも使える。
+
+`Data.Foldable` の `foldr` を Maybe に対して適用すると、要素が 0 ないし 1 のリストのように見える。
+
+```haskell
+import Data.Foldable as F
+F.foldr (+) 10 (Just 5) -- 15
+F.foldr (+) 10 Nothing -- 10
+```
+
+Monoidをつくると fold が簡単にできる！！！便利最高！！！
+
+## まとめ
+
+* モノイドは **単位元** と **二項演算** をもち、 **モノイド則** を満たす構造
+* モノイドは、リストや数値やブール値などの特定の演算を抽象化したものといえる
+* モノイドは「畳込み(fold)」するときに力を発揮する
+
 
